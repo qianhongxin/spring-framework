@@ -159,6 +159,7 @@ public abstract class StringUtils {
 	private static boolean containsText(CharSequence str) {
 		int strLen = str.length();
 		for (int i = 0; i < strLen; i++) {
+			// 判断字符串中是否有空格
 			if (!Character.isWhitespace(str.charAt(i))) {
 				return true;
 			}
