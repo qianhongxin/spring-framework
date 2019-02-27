@@ -446,6 +446,9 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 	 * @return the corresponding handler instance, or {@code null} if none found
 	 * @throws Exception if there is an internal error
 	 */
+	// handlerMapping有根据url找的（这种是在xml中配置的，代表的有BeanNameUrlHandlerMapping）
+	// 还有根据requestMapping找的，这是注解@RequestMapping配置的
+	// 找到的handler有四种类型，目前有HttpRequestHandler，Controller，Servlet，HandlerMethod
 	@Nullable
 	protected abstract Object getHandlerInternal(HttpServletRequest request) throws Exception;
 
@@ -474,6 +477,8 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 				(HandlerExecutionChain) handler : new HandlerExecutionChain(handler));
 
 		String lookupPath = this.urlPathHelper.getLookupPathForRequest(request);
+		// 拦截器机制在很多框架，mybatis，druid，servlet等中都有，为什么有了filter，springmvc还要出inteceptor。
+		// 因为springmvc的所有请求的入口是DispatcherServlet，所以filter对springmvc来说是全局拦截
 		for (HandlerInterceptor interceptor : this.adaptedInterceptors) {
 			if (interceptor instanceof MappedInterceptor) {
 				MappedInterceptor mappedInterceptor = (MappedInterceptor) interceptor;
