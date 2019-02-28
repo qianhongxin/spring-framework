@@ -145,8 +145,11 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 			}
 		}
 
+		// 解析前处理
 		preProcessXml(root);
+		// 解析中
 		parseBeanDefinitions(root, this.delegate);
+		// 解析后处理
 		postProcessXml(root);
 
 		this.delegate = parent;
@@ -173,15 +176,18 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 				if (node instanceof Element) {
 					Element ele = (Element) node;
 					if (delegate.isDefaultNamespace(ele)) {
+						// 默认标签解析
 						parseDefaultElement(ele, delegate);
 					}
 					else {
+						// 自定义标签解析
 						delegate.parseCustomElement(ele);
 					}
 				}
 			}
 		}
 		else {
+			// 自定义标签解析
 			delegate.parseCustomElement(root);
 		}
 	}
@@ -332,6 +338,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	 * @see #getReaderContext()
 	 */
 	protected void preProcessXml(Element root) {
+		// 留给子类扩展
 	}
 
 	/**
@@ -345,6 +352,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	 * @see #getReaderContext()
 	 */
 	protected void postProcessXml(Element root) {
+		// 留给子类扩展
 	}
 
 }
