@@ -49,6 +49,7 @@ import org.springframework.lang.Nullable;
  * @see ByteArrayResource
  * @see InputStreamResource
  */
+// spring对bean等的来源做了抽象，xml的来源也弄成Resource实现，方便扩展，之后还可以是网络等
 public interface Resource extends InputStreamSource {
 
 	/**
