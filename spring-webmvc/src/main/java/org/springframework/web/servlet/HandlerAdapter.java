@@ -74,6 +74,14 @@ public interface HandlerAdapter {
 	 * @return a ModelAndView object with the name of the view and the required
 	 * model data, or {@code null} if the request has been handled directly
 	 */
+	/**
+	 * 默认有5个子类：
+	 * AnnotationMethodHandlerAdapter实现了HandlerAdapter接口，这个类已经被弃用，@Deprecated
+	 * RequestMappingHandlerAdapter继承自AbstractHandlerMethodAdapter，这个handler是最复杂的，可以处理任意方法，通用性最强的
+	 * HttpRequestHandlerAdapter实现了HandlerAdapter接口，todo 待处理
+	 * SimpleControllerHandlerAdapter实现了HandlerAdapter接口，可以处理实现了Controller接口的handler对象
+	 * SimpleServletHandlerAdapter实现了HandlerAdapter接口，我们可以写servlet，让这个执行器执行 todo（弄清楚这个servlet的查找执行逻辑？？）
+	 */
 	@Nullable
 	ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception;
 

@@ -613,6 +613,8 @@ public class DispatcherServlet extends FrameworkServlet {
 
 		// Ensure we have at least one HandlerMapping, by registering
 		// a default HandlerMapping if no other mappings are found.
+		//如果当前spring容器context中没有注入handlermapping，即我们没有主动注册对应的bean。
+		//那么springmvc会加载对应的默认bean
 		if (this.handlerMappings == null) {
 			this.handlerMappings = getDefaultStrategies(context, HandlerMapping.class);
 			if (logger.isTraceEnabled()) {
@@ -903,6 +905,13 @@ public class DispatcherServlet extends FrameworkServlet {
 	/**
 	 * Exposes the DispatcherServlet-specific request attributes and delegates to {@link #doDispatch}
 	 * for the actual dispatching.
+	 */
+	/**
+	 * 这里的context传入是为了拿到对象的创建工厂来创建对应的springmvc组件，时间创建出来的对象没有
+	 * 放入context中，经过调试发现确实这些组件没有放入context中。
+	 *
+	 * 这个方法在初始化时不会执行，在第一次调用这个应用时才会执行一次，之后就不会执行
+	 * @param context
 	 */
 	@Override
 	protected void doService(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -1223,6 +1232,7 @@ public class DispatcherServlet extends FrameworkServlet {
 	 * @param request current HTTP request
 	 * @return the HandlerExecutionChain, or {@code null} if no handler could be found
 	 */
+	//这里的handlermapping是排好序的，有order属性
 	@Nullable
 	protected HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception {
 		if (this.handlerMappings != null) {
