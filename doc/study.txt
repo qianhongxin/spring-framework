@@ -1,0 +1,44 @@
+扩展点：
+https://www.jianshu.com/p/397c15cbf34a
+https://www.jianshu.com/p/96ad11068007
+
+https://www.tuicool.com/articles/ueeyYjI
+
+自定义标签：
+https://sammor.iteye.com/blog/1100911
+https://sammor.iteye.com/blog/1106254
+https://sammor.iteye.com/blog/1102401
+
+事务：
+https://www.jianshu.com/p/84a5bac8b2af
+
+父子容器：
+大多数情况下，我们不会使用父子容器。
+
+如果使用过早期 web.xml 的方式配置 spring ，可以配置出父子容器的情况。
+
+感兴趣的话，可以看看 https://blog.csdn.net/u012129558/article/details/51565168 。
+
+父容器的 bean ，能被子容器使用。
+
+父子容器讲的不错的
+
+
+前面说Bean是Spring中关键因素，那Context和Core又有何作用呢？前面吧Bean比作一场演出中的演员的话，那Context就是这场演出的舞台背景，
+而Core应该就是演出的道具了。只有他们在一起才能 具备能演出一场好戏的最基本的条件。当然有最基本的条件还不能使这场演出脱颖而出，还要他
+表演的节目足够的精彩，这些节目就是Spring能提供的特色功能了。
+
+我们知道Bean包装的是Object，而Object必然有数据，如何给这些数据提供生存环境就是Context要解决的问题，对
+Context来说他就是要发现每个Bean之间的关系，为它们建立这种关系并且要维护好 这种关系。所以Context就是一个Bean关系的集合，
+这个关系集合又叫Ioc容器，一旦建立起这个Ioc容器后Spring就可以为你工作了。那Core组件又有什么用武之地呢？其实Core就是发现、
+建立和维护每 个Bean之间的关系所需要的一些列的工具，从这个角度看来，Core这个组件叫Util更能让你理解。
+https://www.cnblogs.com/xby-123/p/9866766.html
+
+
+XmlBeanFactory和ApplicationContext的区别
+https://www.jianshu.com/p/ec6a37d79cd9
+
+
+
+问题：
+1. spring有自己的bean注册方式。springboot如果做得扩展？
