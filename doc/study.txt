@@ -39,6 +39,9 @@ XmlBeanFactory和ApplicationContext的区别
 https://www.jianshu.com/p/ec6a37d79cd9
 
 
+aop，mvc等都是基于spring的扩展功能。xxl-rpc等也是
+
+
 
 问题：
 1. spring有自己的bean注册方式。springboot如果做得扩展？
