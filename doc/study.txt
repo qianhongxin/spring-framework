@@ -46,3 +46,5 @@ aop，mvc等都是基于spring的扩展功能。xxl-rpc等也是
 问题：
 1. spring有自己的bean注册方式。springboot如果做得扩展？
 
+2.BeanPostProcessor和BeanFactoryPostProcessor的作用扩展点作用时机？
+
