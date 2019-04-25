@@ -1039,6 +1039,7 @@ public class DispatcherServlet extends FrameworkServlet {
 					}
 				}
 
+				// handler执行前调用 interceptor 的applyPreHandle方法
 				if (!mappedHandler.applyPreHandle(processedRequest, response)) {
 					return;
 				}
@@ -1051,6 +1052,7 @@ public class DispatcherServlet extends FrameworkServlet {
 				}
 
 				applyDefaultViewName(processedRequest, mv);
+				// handler执行完调用 interceptor 的 applyPostHandle 方法
 				mappedHandler.applyPostHandle(processedRequest, response, mv);
 			}
 			catch (Exception ex) {
@@ -1064,13 +1066,16 @@ public class DispatcherServlet extends FrameworkServlet {
 			processDispatchResult(processedRequest, response, mappedHandler, mv, dispatchException);
 		}
 		catch (Exception ex) {
+			// 出异常 调用 interceptor 的 triggerAfterCompletion 方法
 			triggerAfterCompletion(processedRequest, response, mappedHandler, ex);
 		}
 		catch (Throwable err) {
+			// 出异常 调用 interceptor 的 triggerAfterCompletion 方法
 			triggerAfterCompletion(processedRequest, response, mappedHandler,
 					new NestedServletException("Handler processing failed", err));
 		}
 		finally {
+			// 异步请求执行时，执行子接口AsyncHandlerInterceptor的applyAfterConcurrentHandlingStarted方法
 			if (asyncManager.isConcurrentHandlingStarted()) {
 				// Instead of postHandle and afterCompletion
 				if (mappedHandler != null) {
@@ -1139,6 +1144,7 @@ public class DispatcherServlet extends FrameworkServlet {
 		}
 
 		if (mappedHandler != null) {
+			// handler执行完调用interceptor的 triggerAfterCompletion 方法
 			mappedHandler.triggerAfterCompletion(request, response, null);
 		}
 	}

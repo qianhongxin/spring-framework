@@ -5,3 +5,6 @@
 2。 spring容器和tomcat直接的关联，怎么做到tomcat启动spring
 
 3。 父子容器的理解
+
+4. springmvc的异步处理，DeferredResult？？
+https://wiselyman.iteye.com/blog/2215852
