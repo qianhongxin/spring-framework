@@ -35,7 +35,7 @@ Context来说他就是要发现每个Bean之间的关系，为它们建立这种
 https://www.cnblogs.com/xby-123/p/9866766.html
 
 
-XmlBeanFactory和ApplicationContext的区别
+XmlBeanFactory和 ApplicationContext 的区别
 https://www.jianshu.com/p/ec6a37d79cd9
 
 
