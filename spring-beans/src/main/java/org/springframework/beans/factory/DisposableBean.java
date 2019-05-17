@@ -41,6 +41,7 @@ public interface DisposableBean {
 	 * @throws Exception in case of shutdown errors. Exceptions will get logged
 	 * but not rethrown to allow other beans to release their resources as well.
 	 */
+	// bean 的销毁调用方法
 	void destroy() throws Exception;
 
 }
