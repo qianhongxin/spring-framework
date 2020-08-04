@@ -180,7 +180,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 						parseDefaultElement(ele, delegate);
 					}
 					else {
-						// 自定义标签解析
+						// root是默认命名空间，还走到这，说明node是自定义命名空间，所以这里调用自定义的
 						delegate.parseCustomElement(ele);
 					}
 				}
@@ -188,17 +188,21 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		}
 		else {
 			// 自定义标签解析
+			// 为啥支持自定义标签：因为原生的spring的xml配置bean太复杂，所以提供了扩展，支持用户自定义简单的xml配置bean，但是解析逻辑也要用户自己提供
 			delegate.parseCustomElement(root);
 		}
 	}
 
 	private void parseDefaultElement(Element ele, BeanDefinitionParserDelegate delegate) {
+		// 解析import标签，实现多模块功能
 		if (delegate.nodeNameEquals(ele, IMPORT_ELEMENT)) {
 			importBeanDefinitionResource(ele);
 		}
+		// 解析别名标签，可以实现一个bean有多个不同的名字，便于一个项目多个地方用不同名字引入同一个bean
 		else if (delegate.nodeNameEquals(ele, ALIAS_ELEMENT)) {
 			processAliasRegistration(ele);
 		}
+		// 解析bean标签
 		else if (delegate.nodeNameEquals(ele, BEAN_ELEMENT)) {
 			processBeanDefinition(ele, delegate);
 		}
@@ -322,7 +326,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 						bdHolder.getBeanName() + "'", ele, ex);
 			}
 			// Send registration event.
-			// 发送注册事件
+			// 发送注册事件，这里只是为了扩展实现，如果应用程序对bean注册完成完成的事件感兴趣，可以注册一个自定义的监听器去做自己的事
 			getReaderContext().fireComponentRegistered(new BeanComponentDefinition(bdHolder));
 		}
 	}

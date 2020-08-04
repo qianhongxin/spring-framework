@@ -48,12 +48,14 @@ public abstract class NamespaceHandlerSupport implements NamespaceHandler {
 	 * Stores the {@link BeanDefinitionParser} implementations keyed by the
 	 * local name of the {@link Element Elements} they handle.
 	 */
+	// 存储配置的元素的解析器
 	private final Map<String, BeanDefinitionParser> parsers = new HashMap<>();
 
 	/**
 	 * Stores the {@link BeanDefinitionDecorator} implementations keyed by the
 	 * local name of the {@link Element Elements} they handle.
 	 */
+	// 存储元素的解码器
 	private final Map<String, BeanDefinitionDecorator> decorators = new HashMap<>();
 
 	/**
@@ -70,7 +72,9 @@ public abstract class NamespaceHandlerSupport implements NamespaceHandler {
 	@Override
 	@Nullable
 	public BeanDefinition parse(Element element, ParserContext parserContext) {
+		// 寻找element对应的解析器，并进行解析操作
 		BeanDefinitionParser parser = findParserForElement(element, parserContext);
+		// 调用的是父类AbstractBeanDefinitionParser的parse方法
 		return (parser != null ? parser.parse(element, parserContext) : null);
 	}
 
@@ -80,7 +84,9 @@ public abstract class NamespaceHandlerSupport implements NamespaceHandler {
 	 */
 	@Nullable
 	private BeanDefinitionParser findParserForElement(Element element, ParserContext parserContext) {
+		// 获取元素名称
 		String localName = parserContext.getDelegate().getLocalName(element);
+		// 根据元素名字获取解析器
 		BeanDefinitionParser parser = this.parsers.get(localName);
 		if (parser == null) {
 			parserContext.getReaderContext().fatal(
@@ -134,6 +140,7 @@ public abstract class NamespaceHandlerSupport implements NamespaceHandler {
 	 * handle the specified element. The element name is the local (non-namespace qualified)
 	 * name.
 	 */
+	// 注册自定义元素的解析器，这个是用户调用
 	protected final void registerBeanDefinitionParser(String elementName, BeanDefinitionParser parser) {
 		this.parsers.put(elementName, parser);
 	}
@@ -143,6 +150,7 @@ public abstract class NamespaceHandlerSupport implements NamespaceHandler {
 	 * handle the specified element. The element name is the local (non-namespace qualified)
 	 * name.
 	 */
+	// 注册自定义元素的解码器，这个是用户调用
 	protected final void registerBeanDefinitionDecorator(String elementName, BeanDefinitionDecorator dec) {
 		this.decorators.put(elementName, dec);
 	}
@@ -152,6 +160,7 @@ public abstract class NamespaceHandlerSupport implements NamespaceHandler {
 	 * handle the specified attribute. The attribute name is the local (non-namespace qualified)
 	 * name.
 	 */
+	// 注册自定义元素的属性解码器，这个是用户调用
 	protected final void registerBeanDefinitionDecoratorForAttribute(String attrName, BeanDefinitionDecorator dec) {
 		this.attributeDecorators.put(attrName, dec);
 	}

@@ -141,65 +141,88 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	private volatile Object beanClass;
 
 	@Nullable
+	// bean的作用范围，对应bean的scope属性
 	private String scope = SCOPE_DEFAULT;
 
+	// 是否是抽象bean，对应bean的abstract属性
 	private boolean abstractFlag = false;
 
+	// 是否延迟加载，对应bean的lazy-init属性
 	private boolean lazyInit = false;
 
+	// 自动注入模式，对应bean的autowire属性
 	private int autowireMode = AUTOWIRE_NO;
 
+	// 依赖检查
 	private int dependencyCheck = DEPENDENCY_CHECK_NONE;
 
 	@Nullable
+	// 用来表示一个bean的实例化依靠另一个bean先实例化，对一个bean属性depend-on
 	private String[] dependsOn;
 
+	// autowire-candidate属性设置为false，这样容器在查找自动装配对象时，将不考虑该bean，即他不会被考虑作为其他bean自动装配的候选者，
+	// 但是该bean本身还是可以使用自动装配来注入其他bean
 	private boolean autowireCandidate = true;
 
+	// 自动装配时，当出现多个bean候选者时，primary如果是true，将作为首选，对应bean的primary属性
 	private boolean primary = false;
 
+	// 用于记录qualifier，对应子元素的qualifier
 	private final Map<String, AutowireCandidateQualifier> qualifiers = new LinkedHashMap<>();
 
 	@Nullable
 	private Supplier<?> instanceSupplier;
 
+	// 允许访问非公开的构造器和方法，程序设置
 	private boolean nonPublicAccessAllowed = true;
 
+	// 是否以一种宽松模式解析构造器，默认是true
 	private boolean lenientConstructorResolution = true;
 
 	@Nullable
+	// 对应bean属性factory-bean
 	private String factoryBeanName;
 
 	@Nullable
+	// 对应bean属性factory-method
 	private String factoryMethodName;
 
 	@Nullable
+	//记录构造函数注入属性，对应bean的constructor-org属性
 	private ConstructorArgumentValues constructorArgumentValues;
 
 	@Nullable
+	// 普通属性集合，即<property></property>配置的属性
 	private MutablePropertyValues propertyValues;
 
 	@Nullable
+	// 方法重写的持有者，，记录lookup-method，replaced-method元素
 	private MethodOverrides methodOverrides;
 
 	@Nullable
+	// 初始化方法，对应bean的init-method
 	private String initMethodName;
 
 	@Nullable
+	// 销毁方法，对应bean的destroy-method
 	private String destroyMethodName;
 
 	private boolean enforceInitMethod = true;
 
 	private boolean enforceDestroyMethod = true;
 
+    // 是否是用户定义的而不是应用程序本身定义的，创建AOP时候为TRUE，程序设置
 	private boolean synthetic = false;
 
+	// 定义bean的应用：APPLICATION：用户  ROLE_INFRASTRUCTURE：完全内部使用，与应用无关  SUPPORT：某些复杂配置的一部分，程序设置
 	private int role = BeanDefinition.ROLE_APPLICATION;
 
 	@Nullable
+	// bean描述信息
 	private String description;
 
 	@Nullable
+	// 这个bean定义的资源
 	private Resource resource;
 
 
