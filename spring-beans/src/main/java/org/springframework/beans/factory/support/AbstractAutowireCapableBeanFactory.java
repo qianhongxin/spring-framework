@@ -528,6 +528,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * @see #instantiateUsingFactoryMethod
 	 * @see #autowireConstructor
 	 */
+	// 创建Bean逻辑
 	protected Object doCreateBean(final String beanName, final RootBeanDefinition mbd, final @Nullable Object[] args)
 			throws BeanCreationException {
 
@@ -1738,11 +1739,13 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		Object wrappedBean = bean;
 		if (mbd == null || !mbd.isSynthetic()) {
 			// 执行所有 BeanPostProcessor 的 postProcessBeforeInitialization 方法，此时 bean 还没有调用所有的初始化入口方法
+			// @Autowired的处理由AutowiredAnnotationBeanPostProcessor处理
 			wrappedBean = applyBeanPostProcessorsBeforeInitialization(wrappedBean, beanName);
 		}
 
 		try {
 			// 执行bean的所有初始化方法
+			// 执行afterproperties方法，init-method方法
 			invokeInitMethods(beanName, wrappedBean, mbd);
 		}
 		catch (Throwable ex) {
@@ -1879,6 +1882,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		else {
 			try {
 				ReflectionUtils.makeAccessible(initMethod);
+				// 调用init-method指定的方法
 				initMethod.invoke(bean);
 			}
 			catch (InvocationTargetException ex) {
